@@ -17,7 +17,7 @@ class BasicSeeder extends Seeder
     public function run()
     {
         DB::table('menus')->truncate();
-        Menu::insert([
+        Menu::insert([[
             'title' => 'Dashboard',
             'url' => "/admin",
             'icon' => "fas fa-fw fa-tachometer-alt",
@@ -38,6 +38,6 @@ class BasicSeeder extends Seeder
             'url' => "/admin/article",
             'icon' => "fas fa-fw fa-book",
             'section' => "200"
-        ]);
+        ]]);
     }
 }
