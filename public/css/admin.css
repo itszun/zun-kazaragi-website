@@ -1,0 +1,14 @@
+textarea.article-title {
+    border: none;
+    font-size: large;
+}
+
+textarea.article-title:focus {
+    box-shadow: none;
+    border-radius: none;
+    text-decoration: underline;
+}
+
+textarea#editor {
+    border: none;
+}
