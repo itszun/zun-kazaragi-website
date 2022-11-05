@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Classification;
 use App\Models\Menu;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
@@ -41,6 +42,29 @@ class BasicSeeder extends Seeder
             'parent_id' => null,
             'icon' => "fas fa-fw fa-book",
             'section' => "200"
+        ]]);
+
+        DB::table('classifications')->truncate();
+        Classification::insert([[
+            "name" => "Announcements",
+            "description" => "Pengumuman terkait aktivitas musik dan konten Zun Fuyuzora",
+            "type" => "article",
+        ], [
+            "name" => "Blog",
+            "description" => "Tulisan tulisan yang dibuat untuk dibaca",
+            "type" => "article",
+        ], [
+            "name" => "Lyrics",
+            "description" => "Syair syair yang tercipta dari sang pencipta",
+            "type" => "article",
+        ], [
+            "name" => "Admin",
+            "description" => "High order manager",
+            "type" => "role",
+        ], [
+            "name" => "Contributor",
+            "description" => "Penulis konten",
+            "type" => "role",
         ]]);
     }
 }
