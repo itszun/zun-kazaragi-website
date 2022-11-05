@@ -45,6 +45,9 @@ class ArticleController extends AdminController
         $query = $query->orderBy($order_by, $order_dir)->offset($request->start)->limit($request->length);
 
         $no = $request->start;
+        if ($keyword) {
+            $query->where('title', 'like', $keyword);
+        }
         $sql = $query->toSql();
 
         $result = $query->get();
@@ -76,14 +79,14 @@ class ArticleController extends AdminController
 
     public function save(Request $request, $article)
     {
-        $article = $article == "create" ? new Article() : Article::findOrFail($article);
+        $article = $article == "create" ? new Article() : Article::idSlug($article)->firstOrFail();
         $validated = $request->validate([
             "parent_id" => "nullable",
-            "title" => "nullable|string|max:50",
+            "title" => "nullable|string|max:100",
             "body" => "nullable|string",
         ]);
 
-        $article->updateOrCreate(['id' => $article->id], $validated);
+        $article->updateOrCreate(['slug' => $article->slug], $validated);
 
         if (!$request->expectsJson()) {
             return redirect()->route('admin.article.edit', $article->id);

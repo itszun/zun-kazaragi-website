@@ -14,17 +14,18 @@
             height: "500",
         }
         CKEDITOR.replace('editor', config)
+        $('#editor').removeClass('d-none')
     })
 </script>
 @endpush
 
 @section('content')
-<form action="" cemes="form" method="POST">
+<form action="" cemes="form" method="POST" cemes-redirect="{{ url()->previous() }}">
     <div class="bg-white border">
         <div class="row my-3">
             <div class="col-8">
-                <textarea type="text" id="title" name="title" placeholder="Title" class="form-control article-title" value="{{ $article->title }}"
-                ></textarea>
+                <textarea type="text" id="title" name="title" placeholder="Title" class="form-control article-title"
+                >{{ $article->title }}</textarea>
             </div>
             <div class="col-4">
                 <div class="float-right p-3">
@@ -33,7 +34,9 @@
                 </div>
             </div>
         </div>
-        <textarea name="body" id="editor" cols="30" rows="1"></textarea>
+        <textarea name="body" id="editor" cols="30" rows="1" class="d-none">
+            {{ $article->body }}
+        </textarea>
     </div>
 </form>
 @endsection

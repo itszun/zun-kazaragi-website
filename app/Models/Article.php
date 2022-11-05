@@ -2,6 +2,7 @@
 
 namespace App\Models;
 
+use App\Casts\HTMLEntities;
 use App\Contracts\ActionButton;
 use App\Traits\HasActionButton;
 use App\Traits\HasSlug;
@@ -13,6 +14,9 @@ class Article extends Model implements ActionButton
 {
     use HasFactory, HasActionButton, HasSlug;
     protected $guarded = ["id"];
+    protected $casts = [
+        "body" => HTMLEntities::class
+    ];
 
     protected static function boot()
     {
@@ -24,7 +28,7 @@ class Article extends Model implements ActionButton
 
     public function getShortBodyAttribute()
     {
-        return Str::of($this->body)->limit(100);
+        return Str::of(strip_tags($this->body))->limit(120);
     }
 
     public function actionButtonOptions(): array {
