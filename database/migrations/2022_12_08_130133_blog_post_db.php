@@ -50,7 +50,7 @@ return new class extends Migration
             $table->string('slug', 100);
             $table->tinyText('summary')->default("");
             $table->text('content')->default("");
-            $table->unsignedTinyInteger('published');
+            $table->string('status');
             $table->dateTime('published_at');
             $table->timestamps();
 

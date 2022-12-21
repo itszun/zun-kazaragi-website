@@ -19,7 +19,7 @@ class PostListScreen extends Screen
     {
         return [
             'posts' => Post::with('categories')
-                ->filters(PostFiltersLayout::class)
+                // ->filters(PostFiltersLayout::class)
                 ->defaultSort('id', 'desc')
                 ->paginate(),
         ];

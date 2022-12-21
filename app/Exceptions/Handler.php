@@ -39,6 +39,14 @@ class Handler extends ExceptionHandler
         'password_confirmation',
     ];
 
+    public function register() {
+        $this->reportable(function(Throwable $e) {
+            if (app()->bound('sentry')) {
+                app('sentry')->captureException($e);
+            }
+        });
+    }
+
     public function render($request, Throwable $e)
     {
         if (in_array(App::environment(), ['local','testing'])) {

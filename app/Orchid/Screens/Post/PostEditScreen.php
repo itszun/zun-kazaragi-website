@@ -2,10 +2,15 @@
 
 namespace App\Orchid\Screens\Post;
 
+use App\Models\Post;
+use App\Orchid\Layouts\Post\PostEditLayout;
+use App\Orchid\Layouts\Post\PostMetadataLayout;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Button;
 use Orchid\Screen\Screen;
 use Orchid\Support\Color;
 use Orchid\Support\Facades\Layout;
+use Orchid\Support\Facades\Toast;
 
 class PostEditScreen extends Screen
 {
@@ -26,7 +31,7 @@ class PostEditScreen extends Screen
      */
     public function name(): ?string
     {
-        return 'PostEditScreen';
+        return 'Post Edit';
     }
 
     /**
@@ -36,7 +41,11 @@ class PostEditScreen extends Screen
      */
     public function commandBar(): iterable
     {
-        return [];
+        return [
+            Button::make(__("Publish"))
+                ->icon('share-alt')
+                ->method('publish')
+        ];
     }
 
     /**
@@ -47,17 +56,30 @@ class PostEditScreen extends Screen
     public function layout(): iterable
     {
         return [
-
-            Layout::block(UserEditLayout::class)
-                ->title(__('Profile Information'))
-                ->description(__('Update your account\'s profile information and email address.'))
-                ->commands(
-                    Button::make(__('Save'))
-                        ->type(Color::DEFAULT())
-                        ->icon('check')
-                        ->canSee($this->user->exists)
-                        ->method('save')
-                ),
+            PostEditLayout::class,
+            PostMetadataLayout::class
         ];
+    }
+
+    /**
+     * Publish Post
+     *
+     * @param Request $request
+     * @return void
+     */
+    public function publish(Post $post, Request $request)
+    {
+        $request->validate([
+            'post.title' => ['required'],
+            'post.content' => ['required']
+        ]);
+
+        $post
+            ->fill($request->collect('post')->toArray())
+            ->fill(['status' => 'published', 'published_at' => now()])
+            ->save();
+
+        Toast::info(__('Post published.'));
+        return redirect(url()->current());
     }
 }

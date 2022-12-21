@@ -69,6 +69,7 @@ Route::screen('posts/{posts}/edit', PostEditScreen::class)
     ->breadcrumbs(fn (Trail $trail) => $trail
         ->parent('platform.systems.posts')
         ->push(__('Post'), route('platform.systems.posts.edit')));
+
 // Platform > System > Posts > Create
 Route::screen('posts/create', PostEditScreen::class)
     ->name('platform.systems.posts.create')
@@ -80,8 +81,7 @@ Route::screen('posts/create', PostEditScreen::class)
 Route::screen('posts', PostListScreen::class)
     ->name('platform.systems.posts')
     ->breadcrumbs(fn (Trail $trail) => $trail
-        ->parent('platform.systems.posts')
-        ->push(__('Posts'), route('platform.systems.posts')));
+        ->push(__('Posts')));
 
 // Platform > System > Roles > Role
 Route::screen('roles/{role}/edit', RoleEditScreen::class)
