@@ -11,6 +11,7 @@
         "laravel/sanctum": "^3.0",
         "laravel/tinker": "^2.7",
         "laravel/ui": "^4.0",
+        "nakukryskin/orchid-repeater-field": "^13.0",
         "orchid/crud": "^3.8",
         "orchid/platform": "^13.8",
         "sentry/sentry-laravel": "^3.1",

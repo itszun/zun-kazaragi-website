@@ -5,8 +5,10 @@ namespace App\Orchid\Screens\Post;
 use App\Models\Post;
 use App\Orchid\Layouts\Post\PostFiltersLayout;
 use App\Orchid\Layouts\Post\PostListLayout;
+use Illuminate\Http\Request;
 use Orchid\Screen\Actions\Link;
 use Orchid\Screen\Screen;
+use Orchid\Support\Facades\Toast;
 
 class PostListScreen extends Screen
 {
@@ -57,8 +59,19 @@ class PostListScreen extends Screen
     public function layout(): iterable
     {
         return [
-            // PostFiltersLayout::class,
             PostListLayout::class
         ];
+    }
+
+    /**
+     * *
+     * @param Request $request
+     * @return void
+     */
+    public function remove(Request $request): void
+    {
+        Post::whereSlug($request->get('slug'))->firstOrFail()->delete();
+
+        Toast::info(__('Post was removed'));
     }
 }

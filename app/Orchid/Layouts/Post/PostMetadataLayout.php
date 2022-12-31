@@ -21,7 +21,7 @@ class PostMetadataLayout extends Rows
     public function fields(): array
     {
         return [
-            Input::make('post.meta-title')
+            Input::make('post.meta_title')
                 ->type('text')
                 ->max(255)
                 ->title(__('Meta Title'))

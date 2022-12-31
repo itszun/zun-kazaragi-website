@@ -4,6 +4,7 @@ declare(strict_types=1);
 
 namespace App\Orchid\Layouts\Post;
 
+use Nakukryskin\OrchidRepeaterField\Fields\Repeater;
 use Orchid\Screen\Field;
 use Orchid\Screen\Fields\Input;
 use Orchid\Screen\Fields\Quill;
@@ -11,7 +12,7 @@ use Orchid\Screen\Fields\TextArea;
 use Orchid\Screen\Layouts\Rows;
 use Orchid\Support\Facades\Layout;
 
-class PostEditLayout extends Rows
+class DynamicMetaLayout extends Rows
 {
     /**
      * Views.
@@ -21,15 +22,13 @@ class PostEditLayout extends Rows
     public function fields(): array
     {
         return [
-            Input::make('post.title')
+            Input::make('key')
                 ->type('text')
-                ->max(255)
-                ->title(__('Title'))
-                ->placeholder(__('Title')),
-            Quill::make('post.content')
-                ->title(__('Content'))
-                ->height('60vh')
-                ->placeholder(__('Content')),
+                ->title(__("Key")),
+            Input::make('value')
+                ->type('text')
+                ->title(__("Value"))
+
         ];
     }
 }

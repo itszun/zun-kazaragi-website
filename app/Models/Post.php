@@ -20,12 +20,16 @@ class Post extends Model
         return $this->belongsToMany(Category::class, 'post_categories');
     }
 
+    public function metadatas() {
+        return $this->hasMany(PostMeta::class, 'post_id', 'id');
+    }
+
     public static function boot() {
         parent::boot();
         static::creating(function($model) {
             $model->author_id = request()->user()->id;
             $model->meta_title = $model->meta_title ?? $model->title;
-            $model->summary = $model->summary ?? substr($model->content, 0, 50);
+            $model->summary = $model->summary ?? substr(CleanHTML($model->content), 0, 200);
         });
     }
 

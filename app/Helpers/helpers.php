@@ -62,3 +62,11 @@ if (!function_exists('PageInfo')) {
         return PageInfo::getInstance();
     }
 }
+
+
+if (!function_exists('CleanHTML')) {
+    function CleanHTML($str) {
+        return strip_tags($str);
+    }
+}
+

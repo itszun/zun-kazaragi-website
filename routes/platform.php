@@ -2,6 +2,7 @@
 
 declare(strict_types=1);
 
+use App\Models\Post;
 use App\Orchid\Screens\Examples\ExampleCardsScreen;
 use App\Orchid\Screens\Examples\ExampleChartsScreen;
 use App\Orchid\Screens\Examples\ExampleFieldsAdvancedScreen;
@@ -64,11 +65,11 @@ Route::screen('users', UserListScreen::class)
         ->push(__('Users'), route('platform.systems.users')));
 
 // Platform > System > Posts
-Route::screen('posts/{posts}/edit', PostEditScreen::class)
+Route::screen('posts/{slug}/edit', PostEditScreen::class)
     ->name('platform.systems.posts.edit')
-    ->breadcrumbs(fn (Trail $trail) => $trail
+    ->breadcrumbs(fn (Trail $trail, $slug) => $trail
         ->parent('platform.systems.posts')
-        ->push(__('Post'), route('platform.systems.posts.edit')));
+        ->push(__('Post'), route('platform.systems.posts.edit', $slug)));
 
 // Platform > System > Posts > Create
 Route::screen('posts/create', PostEditScreen::class)
