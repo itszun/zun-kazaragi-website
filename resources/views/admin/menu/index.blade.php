@@ -10,7 +10,7 @@
 
 @section('content')
 @include('admin._components.page_heading')
-
+{{-- tes pull request --}}
 <div class="card shadow mb-4">
     <div class="card-header py-3">
         <h6 class="m-0 font-weight-bold text-primary">List Menu</h6>
@@ -21,5 +21,5 @@
         </x-datatable.table>
     </div>
 </div>
-{{-- tes pull request --}}
+
 @endsection
